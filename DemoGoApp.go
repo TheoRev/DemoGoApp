@@ -4,20 +4,20 @@ import (
 	"log"
 	"net/http"
 	"time"
-
-	"github.com/gorilla/mux"
 )
 
 func main() {
-	r := mux.NewRouter()
-	fs := http.FileServer(http.Dir("./public"))
-	r.Handle("/", fs)
-	r.Handle("/css/", fs)
-	r.Handle("/js/", fs)
+	// route := mux.NewRouter().StrictSlash(false)
+	// fs := http.FileServer(http.Dir("./public"))
+	// route.Handle("/", fs)
+
+	route := http.NewServeMux()
+	fs := http.FileServer(http.Dir("public"))
+	route.Handle("/", fs)
 
 	server := &http.Server{
 		Addr:           ":1700",
-		Handler:        r,
+		Handler:        route,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
