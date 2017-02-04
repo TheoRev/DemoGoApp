@@ -3,21 +3,49 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Demo</title>
-    <link rel="stylesheet" href="../css/materialize.min.css">
-    <link rel="stylesheet" href="../css/index.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body id="index">
-    <header id="header">
+    <header>
     </header>
 
-    <script type="text/javascript" src="../js/jquery.js">
-    </script>
-    <script type="text/javascript" src="../js/materialize.min.js">
-    </script>
+    <container>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m4"></div>
+                <span></span>
+                <div class="col s12 m4" style="padding-top: 75px;">
+                    <form class="" action="#" method="post">
+                        <div class="card-panel #b2ebf2 cyan lighten-4 z-depth-4">
+                            <div class="center">
+                                <i class="large material-icons">account_circle</i>
+                            </div>
+                            <div class="input-field">
+                                <label for="user">Usuario</label>
+                                <input id="user" type="text" class="validate">
+                            </div>
+                            <div class="input-field">
+                                <label for="nro_serie">Password</label>
+                                <input id="nro_serie" type="password" class="validate" style="font-size: 14pt;">
+                            </div>
+                            <br>
+                            <div class="row">
+                                <input type="submit" class="waves-effect waves-light btn col s12 container" name="ingresar" value="Ingresar">
+                            </div>
+                            <!-- <input type="submit" class="waves-effect waves-light btn container" name="ingresar" value="Ingresar"> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </container>
 
-    <script type="text/javascript" src="../js/controller/menu.js">
+    <script type="text/javascript" src="js/jquery.js">
+    </script>
+    <script type="text/javascript" src="js/materialize.min.js">
     </script>
 
     <!-- <script>
