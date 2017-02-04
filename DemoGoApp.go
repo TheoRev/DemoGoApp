@@ -1,28 +1,39 @@
 package main
 
 import (
-	"DemoGoApp/migration"
-	"flag"
+	"DemoGoApp/dao/factory"
+	"DemoGoApp/models"
+	"DemoGoApp/util"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
 )
 
 func main() {
-	migrar()
+	initCrud()
 }
 
-func migrar() {
-	log.Println("Entró al metodo migrar()")
-	var migrate string
-	flag.StringVar(&migrate, "migrate", "no", "Genera la migración a la DB")
-	flag.Parse()
-
-	if migrate == "yes" {
-		log.Println("Inició la migración...")
-		migration.Migrate()
-		log.Println("Finalizó la migración...")
+func initCrud() {
+	config, err := util.GetConfiguration()
+	if err != nil {
+		log.Fatalln(err)
 	}
+
+	userDAO := factory.FactoryDAO(config.Engine)
+	user := models.User{}
+
+	fmt.Print("Ingrese su UserName: ")
+	fmt.Scan(&user.UserName)
+	fmt.Print("Ingrese su Password: ")
+	fmt.Scan(&user.Password)
+
+	err = userDAO.Create(&user)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	fmt.Println(user)
 }
 
 func initServer() {

@@ -1,33 +1,31 @@
-package conexion
+package dao
 
 import (
-	"encoding/json"
+	"DemoGoApp/util"
+	"database/sql"
+	"fmt"
 	"log"
-	"os"
+	// Importa el driver de postgresql
+	_ "github.com/lib/pq"
 )
 
-// Conexion estructura con los parametros de conexion a la DB
-type Conexion struct {
-	Server   string
-	Port     string
-	User     string
-	Password string
-	Database string
-}
-
-// GetConexion obtiene la conexion a la base de datos
-func GetConexion() Conexion {
-	var conexion Conexion
-	file, err := os.Open("./config.json")
+// Get obtiene la conexion a postgres
+func Get() *sql.DB {
+	config, err := util.GetConfiguration()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalln(err)
 	}
-	defer file.Close()
 
-	err = json.NewDecoder(file).Decode(&conexion)
+	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s", config.User, config.Password, config.Server, config.Port, config.Database)
+	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	return conexion
+	err = db.Ping()
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	return db
 }
